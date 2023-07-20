@@ -10,7 +10,7 @@ public class Participer {
 
     @Id
     // Pour mettre le type en auto incremente
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     // Not Nul dans la Base de donnée
     @NotNull(message = "Champs laisser vide")

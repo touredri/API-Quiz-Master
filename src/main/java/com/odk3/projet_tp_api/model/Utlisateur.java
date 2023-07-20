@@ -6,12 +6,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-@Data
+
 @Entity
 public class Utlisateur {
     @Id
     // Pour mettre le type en auto incremente
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     // Not Null de base de donnée
     @Column(nullable = false)

@@ -8,7 +8,7 @@ import lombok.Data;
 public class Question {
     @Id
     // Pour mettre le type en auto incremente
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     // Not Null de base de donnée
     @Column(nullable = false)

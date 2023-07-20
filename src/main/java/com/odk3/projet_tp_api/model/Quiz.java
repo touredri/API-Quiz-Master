@@ -13,7 +13,7 @@ public class Quiz {
     @Id
 
     // Pour mettre le type en auto incremente
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     // note null de base de donnée
     @Column(nullable = false)
