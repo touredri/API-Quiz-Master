@@ -30,6 +30,7 @@ public class Utlisateur {
     private String email;
 
     @NotNull(message = "Chemps vide")
+    @Size(min = 6, message = "Saisissez un Mot de pass correct")
     @Column(nullable = false)
     private String motDePasse;
 }
