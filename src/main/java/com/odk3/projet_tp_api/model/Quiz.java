@@ -8,11 +8,15 @@ import lombok.Data;
 @Entity
 public class Quiz {
     @Id
+
     // Pour mettre le type en auto incremente
     @GeneratedValue(strategy = GenerationType.AUTO)
-    // note null
+
+    // note null de base de donnée
     @Column(nullable = false)
     private int idQuiz ;
+
+    // Not Null de base de donnée
     @Column(nullable = false)
     private String Titre;
 }
