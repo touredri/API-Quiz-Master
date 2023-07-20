@@ -13,6 +13,7 @@ public class Participer {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     // Not Nul dans la Base de donnée
+    @NotNull(message = "Champs laisser vide")
     @Column(nullable = false)
     private int idParticiper;
 
