@@ -15,7 +15,7 @@ public class Utlisateur {
     private int idUtilisateur;
 
     @NotNull(message = "Chemps vide")
-    @Size(min = 2)
+    @Size(min = 2, message = "nom court")
     @Column(nullable = false)
     private String nom;
 
