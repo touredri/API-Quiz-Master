@@ -20,4 +20,8 @@ public class Question {
     // Not Null de base de donnée
     @Column(nullable = false)
     private String contenue;
+
+    @ManyToOne
+    @JoinColumn(name = "idQuiz", nullable= false)
+    private Quiz quiz;
 }
