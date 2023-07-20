@@ -21,6 +21,7 @@ public class Participer {
     @NotNull(message = "champs null")
 
     // Not Null dans la Base de donnée
+    @NotNull(message = "champs null")
     @Column(nullable = false)
     private int score;
 }
