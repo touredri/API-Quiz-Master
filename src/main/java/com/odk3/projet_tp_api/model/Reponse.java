@@ -1,6 +1,7 @@
 package com.odk3.projet_tp_api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -12,6 +13,8 @@ public class Reponse {
     @Column(nullable = false)
     private int idReponse;
 
+    @Lob
+    @Size(min = 5, message = "contenue court")
     @Column(nullable = false)
     private  String contenue;
 

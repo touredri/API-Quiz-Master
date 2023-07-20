@@ -13,6 +13,7 @@ public class Question {
     @Column(nullable = false)
     private int idQuestion;
 
+    @Lob
     @Column(nullable = false)
     private String contenu;
 }
