@@ -10,10 +10,13 @@ public class Question {
     // Pour mettre le type en auto incremente
     @GeneratedValue(strategy = GenerationType.AUTO)
 
+    // Not Null de base de donnée
     @Column(nullable = false)
     private int idQuestion;
 
     @Lob
+    // Not Null de base de donnée
+
     @Column(nullable = false)
-    private String contenu;
+    private String contenue;
 }
