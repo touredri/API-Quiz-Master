@@ -26,4 +26,15 @@ public class Reponse {
     // Not Null de base de donnée
     @Column(nullable = false)
     private boolean correct;
+
+
+    @ManyToOne
+    //Joindre le colonne
+    @JoinColumn(name = "idQuestion", nullable = false)
+    private Question question;
+
+    @ManyToOne
+    // Joindre colonne
+    @JoinColumn(name = "idUtilisateur", nullable = false)
+    private Utilisateur utilisateur;
 }

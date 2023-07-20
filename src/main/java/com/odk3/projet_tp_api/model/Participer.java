@@ -24,4 +24,14 @@ public class Participer {
     @NotNull(message = "champs null")
     @Column(nullable = false)
     private int score;
+
+    @ManyToOne
+    //Joindre le colonne
+    @JoinColumn(name = "idUtilisateur",nullable = false)
+    private Utilisateur utlisateurs;
+
+    @ManyToOne
+    @JoinColumn(name = "idQuiz", nullable = false)
+    private Quiz quiz;
 }
+
