@@ -1,6 +1,5 @@
 package com.odk3.projet_tp_api.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,5 +24,9 @@ public class Quiz {
     // Not Null de base de donnée
     @Column(nullable = false)
     private String Titre;
+
+    @ManyToOne
+    @JoinColumn(name = "idUtilisateur",nullable = false)
+    private Utilisateur utilisateur;
 }
 
