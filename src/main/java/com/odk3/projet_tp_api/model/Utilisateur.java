@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 
 
 @Entity
-public class Utlisateur {
+public class Utilisateur {
     @Id
     // Pour mettre le type en auto incremente
     @GeneratedValue(strategy = GenerationType.IDENTITY)
