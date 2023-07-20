@@ -14,9 +14,10 @@ public class Question {
     @Column(nullable = false)
     private int idQuestion;
 
+    // Pour monter que le text est long
     @Lob
-    // Not Null de base de donnée
 
+    // Not Null de base de donnée
     @Column(nullable = false)
     private String contenue;
 }

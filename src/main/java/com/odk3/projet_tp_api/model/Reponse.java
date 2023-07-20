@@ -18,6 +18,7 @@ public class Reponse {
 
     @Lob
     @Size(min = 5, message = "contenue court")
+
     // Not Null de base de donnée
     @Column(nullable = false)
     private  String contenue;
