@@ -22,6 +22,12 @@ public class Question {
     private String contenue;
 
     @ManyToOne
+
     @JoinColumn(name = "idUtilicateur", nullable = false)
     private Utilisateur utilisateur;
+
+    @ManyToOne
+    @JoinColumn(name = "idQuiz", nullable= false)
+    private Quiz quiz;
+
 }
