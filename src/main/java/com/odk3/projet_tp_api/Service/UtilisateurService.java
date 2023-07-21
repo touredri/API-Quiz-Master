@@ -28,7 +28,6 @@ public class UtilisateurService {
     }
 
     public List<Utilisateur> listUtilisateurs() {
-
         return utilisateurRepository.findAll();
     }
 

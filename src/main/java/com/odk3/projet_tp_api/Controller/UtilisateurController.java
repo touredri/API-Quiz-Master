@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/utilisateur")
 public class UtilisateurController {
@@ -39,6 +41,11 @@ public class UtilisateurController {
         } else {
             return "Ce compte n'existe pas !";
         }
+    }
+
+    @GetMapping("/list")
+    public List<Utilisateur> allUsers(){
+        return utilisateurService.listUtilisateurs();
     }
 
     @PutMapping("/modifier")
