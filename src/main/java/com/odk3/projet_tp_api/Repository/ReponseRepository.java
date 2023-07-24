@@ -10,4 +10,5 @@ public interface ReponseRepository extends JpaRepository<Reponse,Integer> {
     public Reponse findByContenueAndQuestion(String contenue, Question question);
 
     public  Reponse findByIdReponseAndUtilisateur(int id, Utilisateur utilisateur);
+    int countByQuestion(Question question);
 }

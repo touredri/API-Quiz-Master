@@ -1,5 +1,6 @@
 package com.odk3.projet_tp_api.Controller;
 
+import com.odk3.projet_tp_api.Repository.ReponseRepository;
 import com.odk3.projet_tp_api.Service.ReponseService;
 import com.odk3.projet_tp_api.model.Question;
 import com.odk3.projet_tp_api.model.Reponse;
@@ -20,11 +21,18 @@ public class ReponseController {
     @Autowired // Injection de depandence
     ReponseService reponseService; // Un variable de type UtilisateurService
 
+    @Autowired
+    ReponseRepository reponseRepository;
+
     @PostMapping ("/ajouter")
     public ResponseEntity<Object> ajouterReponse(@RequestBody Reponse reponse) {
         Reponse verifReponse = reponseService.creerReponse(reponse);
         if (verifReponse != null) {
-            return new ResponseEntity<>(verifReponse, HttpStatus.OK) ;
+            if (reponseRepository.countByQuestion(verifReponse.getQuestion()) >= 4){
+                return new ResponseEntity<>("nombre de reponse atteint", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(verifReponse, HttpStatus.OK) ;
+            }
         } else {
             return new ResponseEntity<>("Reponse existe déjà", HttpStatus.OK);
         }
