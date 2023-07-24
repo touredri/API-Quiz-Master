@@ -1,9 +1,14 @@
 package com.odk3.projet_tp_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -28,5 +33,9 @@ public class Quiz {
     @ManyToOne
     @JoinColumn(name = "idUtilisateur",nullable = false)
     private Utilisateur utilisateur;
+
+    @OneToMany(mappedBy = "quiz", orphanRemoval = true)
+    @JsonIgnore
+    private List<Question> questions = new ArrayList<>();
 }
 

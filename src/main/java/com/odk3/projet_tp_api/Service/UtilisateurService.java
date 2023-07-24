@@ -57,8 +57,10 @@ public class UtilisateurService {
     public Utilisateur connectionUtilisateur(String email, String mon_de_passe) {
         if (utilisateurRepository.findByEmailAndMotDePasse(email, mon_de_passe) != null) {
             return utilisateurRepository.findByEmailAndMotDePasse(email, mon_de_passe);
+        }else {
+            return null;
         }
-        return null;
+
     }
 
 
