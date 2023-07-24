@@ -18,7 +18,7 @@ public class QuizController {
     QuizService quizService;
 
     @PostMapping("/ajouter")
-    public ResponseEntity<Object> ajouterQuiz(Quiz quiz) {
+    public ResponseEntity<Object> ajouterQuiz(@RequestBody Quiz quiz) {
         Quiz verifQuiz = quizService.creerQuiz(quiz);
         if (verifQuiz != null) {
             return new ResponseEntity<>(verifQuiz, HttpStatus.OK);

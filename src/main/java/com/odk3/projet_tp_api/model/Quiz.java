@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @Entity
 public class Quiz {
-    @NotNull(message = "champs null")
     @Id
 
     // Pour mettre le type en auto incremente
@@ -23,12 +22,12 @@ public class Quiz {
     @Column(nullable = false)
     private int idQuiz ;
 
-    @NotNull(message = "champs null")
+    @NotNull(message = "champs vide")
     @Size(min = 5, message = "titre court")
 
     // Not Null de base de donnée
     @Column(nullable = false)
-    private String Titre;
+    private String titre;
 
     @ManyToOne
     @JoinColumn(name = "idUtilisateur",nullable = false)

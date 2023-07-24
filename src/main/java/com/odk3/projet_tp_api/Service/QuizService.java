@@ -4,14 +4,14 @@ import com.odk3.projet_tp_api.Repository.QuizRepository;
 import com.odk3.projet_tp_api.model.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Service
 public class QuizService {
     @Autowired
-    QuizRepository quizRepository ;
+    QuizRepository quizRepository;
+
     public Quiz creerQuiz(Quiz quiz) {
         if (quizRepository.findByTitreAndUtilisateur(quiz.getTitre(), quiz.getUtilisateur()) == null) {
             return quizRepository.save(quiz);
