@@ -34,8 +34,8 @@ public class Quiz {
     @JoinColumn(name = "idUtilisateur",nullable = false)
     private Utilisateur utilisateur;
 
-    @OneToMany(mappedBy = "quiz", orphanRemoval = true)
-    @JsonIgnore
+    @OneToMany(mappedBy = "quiz", orphanRemoval = true) // orphan Removal permet de suppimer tout les id correspond
+    @JsonIgnore // il permet de ignorer tout les question ici
     private List<Question> questions = new ArrayList<>();
 }
 
