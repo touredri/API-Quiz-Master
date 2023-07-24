@@ -59,7 +59,7 @@ public class Utilisateur {
 
     // L'Anotation d'Email
     // message : message afficher si le champs de notre email est vide
-    @Email(message = "email correct")
+    @Email(message = "email incorrect")
 
     // Not Null de base de donnée
     @Column(nullable = false)
@@ -82,7 +82,5 @@ public class Utilisateur {
     @JsonIgnore
     private List<Quiz> quizs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "utilisateur")
-    @JsonIgnore
-    private  List<Question> questions = new ArrayList<>();
+
 }

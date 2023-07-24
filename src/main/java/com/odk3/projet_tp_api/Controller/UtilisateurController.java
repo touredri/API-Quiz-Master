@@ -35,8 +35,12 @@ public class UtilisateurController {
 
     @PostMapping("/connexion")
     public Object connexion(@RequestParam("email") String email, @RequestParam("mot_de_passe") String mot_de_passe) {
+        System.out.println("debut==============");
         Utilisateur verifUtilisateur = utilisateurService.connectionUtilisateur(email, mot_de_passe);
+
         if (verifUtilisateur != null) {
+            System.out.println("mes quizz==============");
+            System.out.println("mes quizz=============="+verifUtilisateur.getQuizs().size());
             return verifUtilisateur;
         } else {
             return "Ce compte n'existe pas !";

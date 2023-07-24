@@ -28,7 +28,7 @@ public class QuizController {
     }
 
     @PutMapping("/modifier")
-    public ResponseEntity<Object> modifierQuiz(Quiz quiz) {
+    public ResponseEntity<Object> modifierQuiz(@RequestBody Quiz quiz) {
         Quiz verifQuiz = quizService.modifierQuiz(quiz);
         if (verifQuiz != null) {
             return new ResponseEntity<>(verifQuiz, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class QuizController {
     }
 
     @DeleteMapping("/supprimer")
-    public ResponseEntity<String> suppimerQuiz(Quiz quiz) {
+    public ResponseEntity<String> suppimerQuiz(@RequestBody Quiz quiz) {
         String message = quizService.supprimerQuiz(quiz);
         if (message.equals("Succès")) {
             return new ResponseEntity<>("Supprimer avec Succès", HttpStatus.OK);
