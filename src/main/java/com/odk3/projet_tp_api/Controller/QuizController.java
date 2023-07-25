@@ -59,7 +59,7 @@ public class QuizController {
         }
     }
 
-    @Operation(summary = "Recherche des quiz à travers un titre",description = "pititipatata")
+    @Operation(summary = "Recherche des quiz à travers un titre")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Quiz trouver",content = {
                     @Content(mediaType = "application/json",schema = @Schema(implementation = Quiz.class))
