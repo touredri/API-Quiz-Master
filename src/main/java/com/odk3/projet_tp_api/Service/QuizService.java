@@ -1,6 +1,7 @@
 package com.odk3.projet_tp_api.Service;
 
 import com.odk3.projet_tp_api.Repository.QuizRepository;
+import com.odk3.projet_tp_api.exception.NotFoundException;
 import com.odk3.projet_tp_api.model.Quiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class QuizService {
         if (quizRepository.findByIdQuizAndUtilisateur(quiz.getIdQuiz(), quiz.getUtilisateur()) != null) {
             return quizRepository.save(quiz);
         } else {
-            return null;
+            throw new NotFoundException("Cet quiz n'existe pas");
         }
     }
 
@@ -42,10 +43,10 @@ public class QuizService {
     }
 
     public List<Quiz> rechercherQuiz(String cleTitre) {
-        if (quizRepository.findByTitreContains(cleTitre) != null) {
+        if (!quizRepository.findByTitreContains(cleTitre).isEmpty()) {
             return quizRepository.findByTitreContains(cleTitre);
         } else {
-            return null;
+            throw new NotFoundException("Aucun quiz ne correspond à cet titre");
         }
     }
 }

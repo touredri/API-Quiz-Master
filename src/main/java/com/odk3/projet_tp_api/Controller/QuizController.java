@@ -2,6 +2,12 @@ package com.odk3.projet_tp_api.Controller;
 
 import com.odk3.projet_tp_api.Service.QuizService;
 import com.odk3.projet_tp_api.model.Quiz;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +41,7 @@ public class QuizController {
         } else {
             return new ResponseEntity<>("existe pas", HttpStatus.NOT_FOUND);
         }
+        //return new ResponseEntity<>(quizService.modifierQuiz(quiz), HttpStatus.OK);
     }
 
     @GetMapping("/list")
@@ -52,9 +59,18 @@ public class QuizController {
         }
     }
 
+    @Operation(summary = "Recherche des quiz à travers un titre",description = "pititipatata")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Quiz trouver",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Quiz.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "Quiz non trouver", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
     @GetMapping("/recherche")
-    public List<Quiz> rechercheQuiz(@RequestParam("cleTitre") String cleTitre) {
-        return quizService.rechercherQuiz(cleTitre);
+    public ResponseEntity<List<Quiz>> rechercheQuiz(@Parameter(description = "Titre du quiz à rechercher") @RequestParam("cleTitre") String cleTitre) {
+        return new ResponseEntity<>(quizService.rechercherQuiz(cleTitre),HttpStatus.OK);
     }
 
 }
