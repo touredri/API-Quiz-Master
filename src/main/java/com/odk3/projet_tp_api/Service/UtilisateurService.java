@@ -1,6 +1,7 @@
 package com.odk3.projet_tp_api.Service;
 
 import com.odk3.projet_tp_api.Repository.UtilisateurRepository;
+import com.odk3.projet_tp_api.model.Participer;
 import com.odk3.projet_tp_api.model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class UtilisateurService {
         }
 
     }
+
 
     public String supprimeUtilisateur(Utilisateur utilisateur) {
 

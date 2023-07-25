@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ParticiperRepository extends JpaRepository<Participer,Integer> {
+
+    public Participer findByIdParticiper(int id);
 }
