@@ -2,6 +2,7 @@ package com.odk3.projet_tp_api.Controller;
 
 import com.odk3.projet_tp_api.Service.UtilisateurService;
 import com.odk3.projet_tp_api.model.Utilisateur;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class UtilisateurController {
     }*/
 
     @PostMapping("/ajouter")
-    public Object ajouterUtilisateur(@RequestBody Utilisateur utilisateur){
+    public Object ajouterUtilisateur(@Valid @RequestBody Utilisateur utilisateur){
         Utilisateur verifUtilisateur = utilisateurService.creerUtilisateur(utilisateur);
         if (verifUtilisateur != null) {
             return verifUtilisateur;

@@ -32,12 +32,11 @@ public class Question {
     private Utilisateur utilisateur;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "idQuiz", nullable= false)
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question", orphanRemoval = true)
-    @JsonIgnoreProperties("question")
+    @JsonIgnoreProperties(value = {"question"})
     private List<Reponse> reponses = new ArrayList<>();
 
 
