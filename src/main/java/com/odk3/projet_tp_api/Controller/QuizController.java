@@ -111,7 +111,10 @@ public class QuizController {
         }
     }
 
+
     // =====================================================================================================
+
+
     @Operation(summary = "Recherche des quiz à travers un titre")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Quiz trouver",content = {
