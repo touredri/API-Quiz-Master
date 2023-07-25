@@ -23,6 +23,19 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
+
+    // =====================================================================================================
+
+    @Operation(summary = "Ajouter des quiz ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Quiz supprimer",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Quiz.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "409",description = "Quiz existe déjà", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
+
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterQuiz(@RequestBody Quiz quiz) {
         Quiz verifQuiz = quizService.creerQuiz(quiz);
@@ -32,6 +45,19 @@ public class QuizController {
             return new ResponseEntity<>("existe", HttpStatus.OK);
         }
     }
+
+
+    // =====================================================================================================
+
+    @Operation(summary = "Modification des quiz ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Quiz supprimer",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Quiz.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "introuvable", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
 
     @PutMapping("/modifier")
     public ResponseEntity<Object> modifierQuiz(@RequestBody Quiz quiz) {
@@ -44,10 +70,36 @@ public class QuizController {
         //return new ResponseEntity<>(quizService.modifierQuiz(quiz), HttpStatus.OK);
     }
 
+
+    // =====================================================================================================
+
+    @Operation(summary = "List des quiz ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Quiz supprimer",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Quiz.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "204",description = "List vite", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
+
     @GetMapping("/list")
     public List<Quiz> quizList() {
         return quizService.quizList();
     }
+
+
+    // =====================================================================================================
+
+    @Operation(summary = "Supprimer un quiz ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Quiz supprimer",content = {
+                    @Content(mediaType = "text/plain",schema = @Schema(implementation = Quiz.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "Quiz existe pas", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
 
     @DeleteMapping("/supprimer")
     public ResponseEntity<String> suppimerQuiz(@RequestBody Quiz quiz) {
@@ -58,6 +110,9 @@ public class QuizController {
             return new ResponseEntity<>("Not FOUND", HttpStatus.NOT_FOUND);
         }
     }
+
+
+    // =====================================================================================================
 
     @Operation(summary = "Recherche des quiz à travers un titre")
     @ApiResponses(value = {

@@ -2,6 +2,12 @@ package com.odk3.projet_tp_api.Controller;
 
 import com.odk3.projet_tp_api.Service.ParticiperService;
 import com.odk3.projet_tp_api.model.Participer;
+import com.odk3.projet_tp_api.model.Question;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +23,20 @@ public class ParticiperController {
     @Autowired // injection de donnée
     ParticiperService participerService;
 
+
+
+    // =====================================================================================================
+
+    @Operation(summary = "Ajouter une participation ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Participer ajouter",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Participer.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "409",description = "Qustion existe déjà", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
+
     @PostMapping("/ajouter")
     public ResponseEntity<Object> ajouterParticiper(@RequestBody Participer participer) {
         Participer verifParticiper = participerService.creerParticiper(participer);
@@ -27,10 +47,38 @@ public class ParticiperController {
         }
     }
 
+
+
+    // =====================================================================================================
+
+    @Operation(summary = "List des Participation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Participer list",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Participer.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "204",description = "List vite", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
+
     @GetMapping("/list")
     public List<Participer> listParticiper() {
         return participerService.participerList();
     }
+
+
+
+    // =====================================================================================================
+
+    @Operation(summary = "Modifier une participation ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Question modifier",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Participer.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "introuvable", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
 
     @PutMapping("/modifier")
     public ResponseEntity<Object> modifierParticiper(@RequestBody Participer participer) {
@@ -41,6 +89,20 @@ public class ParticiperController {
             return new ResponseEntity<>("existe pas", HttpStatus.NOT_FOUND);
         }
     }
+
+
+
+    // =====================================================================================================
+
+    @Operation(summary = "Supprimer une participer ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Participer supprimer",content = {
+                    @Content(mediaType = "text/plain",schema = @Schema(implementation = Participer.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "Question existe pas", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
 
     @DeleteMapping("/supprimer")
     public ResponseEntity<String> supprimerParticiper(@RequestBody  Participer participer) {
