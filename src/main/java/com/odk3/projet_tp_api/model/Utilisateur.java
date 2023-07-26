@@ -26,7 +26,7 @@ public class Utilisateur {
 
     // Not Null de Spring
     // message : message afficher si le champs de notre Nom est vide
-    @NotNull(message = "Chemps vide")
+    @NotNull(message = "Champs vide")
 
     // lenght de notre nom
     // message : message afficher si le champs de notre Nom est vide
@@ -68,7 +68,7 @@ public class Utilisateur {
     //======================= POUR MOT DE PASSE ===============================
 
     // Not Null de Spring
-    @NotNull(message = "Chemps vide")
+    @NotNull(message = "Champs vide")
 
     // size : lenght de notre Mot de passe
     // message : message afficher si le champs de notre Mot de passe est vide
@@ -81,6 +81,10 @@ public class Utilisateur {
     @OneToMany(mappedBy = "utilisateur", orphanRemoval = true)
     @JsonIgnore
     private List<Quiz> quizs = new ArrayList<>();
+
+    @OneToMany(mappedBy = "utilisateur", orphanRemoval = true)
+    @JsonIgnore
+    private List<Participer> participerList = new ArrayList<>();
 
 
 }

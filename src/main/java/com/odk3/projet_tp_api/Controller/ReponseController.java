@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class ReponseController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
     @PostMapping ("/ajouter")
-    public ResponseEntity<Object> ajouterReponse(@RequestBody Reponse reponse) {
+    public ResponseEntity<Object> ajouterReponse(@Valid @RequestBody Reponse reponse) {
         Reponse verifReponse = reponseService.creerReponse(reponse);
         if (verifReponse != null) {
             if (reponseRepository.countByQuestion(verifReponse.getQuestion()) >= 4){
@@ -65,7 +66,7 @@ public class ReponseController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
     @PutMapping("/modifier")
-    public ResponseEntity<Object> modifierReponse(@RequestBody Reponse reponse) {
+    public ResponseEntity<Object> modifierReponse(@Valid @RequestBody Reponse reponse) {
         Reponse verifReponse = reponseService.modiferReponse(reponse);
         if (verifReponse != null) {
             return new ResponseEntity<>(verifReponse, HttpStatus.OK);
@@ -100,7 +101,7 @@ public class ReponseController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
     @DeleteMapping("/supprimer")
-    public  ResponseEntity<String> supprimerReponse(Reponse reponse){
+    public  ResponseEntity<String> supprimerReponse(@Valid @RequestBody Reponse reponse){
         String message = reponseService.supprimerReponse(reponse);
         if (message.equals("Succès")) {
             return new ResponseEntity<>("Suppression avec Succès", HttpStatus.OK);

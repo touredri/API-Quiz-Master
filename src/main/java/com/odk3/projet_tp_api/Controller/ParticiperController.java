@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,8 @@ public class ParticiperController {
     })
 
     @PostMapping("/ajouter")
-    public ResponseEntity<Object> ajouterParticiper(@RequestBody Participer participer) {
+    public ResponseEntity<Object> ajouterParticiper(@Valid @RequestBody Participer participer) {
+
         Participer verifParticiper = participerService.creerParticiper(participer);
         if (verifParticiper != null) {
             return new ResponseEntity<>(verifParticiper, HttpStatus.OK);

@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class QuizController {
     })
 
     @PostMapping("/ajouter")
-    public ResponseEntity<Object> ajouterQuiz(@RequestBody Quiz quiz) {
+    public ResponseEntity<Object> ajouterQuiz(@Valid @RequestBody Quiz quiz) {
         Quiz verifQuiz = quizService.creerQuiz(quiz);
         if (verifQuiz != null) {
             return new ResponseEntity<>(verifQuiz, HttpStatus.OK);
@@ -60,7 +61,7 @@ public class QuizController {
     })
 
     @PutMapping("/modifier")
-    public ResponseEntity<Object> modifierQuiz(@RequestBody Quiz quiz) {
+    public ResponseEntity<Object> modifierQuiz(@Valid @RequestBody Quiz quiz) {
         Quiz verifQuiz = quizService.modifierQuiz(quiz);
         if (verifQuiz != null) {
             return new ResponseEntity<>(verifQuiz, HttpStatus.OK);
@@ -102,7 +103,7 @@ public class QuizController {
     })
 
     @DeleteMapping("/supprimer")
-    public ResponseEntity<String> suppimerQuiz(@RequestBody Quiz quiz) {
+    public ResponseEntity<String> suppimerQuiz(@Valid @RequestBody Quiz quiz) {
         String message = quizService.supprimerQuiz(quiz);
         if (message.equals("Succès")) {
             return new ResponseEntity<>("Supprimer avec Succès", HttpStatus.OK);

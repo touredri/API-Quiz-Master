@@ -2,7 +2,10 @@ package com.odk3.projet_tp_api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -28,7 +31,7 @@ public class Participer {
     @ManyToOne
     //Joindre le colonne
     @JoinColumn(name = "idUtilisateur",nullable = false)
-    private Utilisateur utlisateurs;
+    private Utilisateur utilisateur;
 
     @ManyToOne
     @JoinColumn(name = "idQuiz", nullable = false)

@@ -67,8 +67,6 @@ public class UtilisateurController {
         Utilisateur verifUtilisateur = utilisateurService.connectionUtilisateur(email, mot_de_passe);
 
         if (verifUtilisateur != null) {
-            System.out.println("mes quizz==============");
-            System.out.println("mes quizz=============="+verifUtilisateur.getQuizs().size());
             return verifUtilisateur;
         } else {
             return "Ce compte n'existe pas !";
@@ -101,7 +99,7 @@ public class UtilisateurController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
     @PutMapping("/modifier")
-    public  Object modifierUtilisateur(@RequestBody Utilisateur utilisateur) {
+    public  Object modifierUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
         Utilisateur verifUtilisateur = utilisateurService.modifierUtilisateur(utilisateur);
         if (verifUtilisateur != null) {
             return verifUtilisateur;
@@ -121,7 +119,7 @@ public class UtilisateurController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
    @DeleteMapping("/supprimer")
-    public String supprimerUtilisateur(@RequestBody Utilisateur utilisateur) {
+    public String supprimerUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
 
 
         String message = utilisateurService.supprimeUtilisateur(utilisateur);

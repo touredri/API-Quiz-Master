@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class QuestionController {
     })
 
     @PostMapping("/ajouter")
-    public ResponseEntity<Object> ajouterQuestion(@RequestBody Question question){
+    public ResponseEntity<Object> ajouterQuestion(@Valid @RequestBody Question question){
         Question questionVerif = questionService.createQuestion(question);
         if (questionVerif != null){
             return new ResponseEntity<>(questionVerif, HttpStatus.OK);
@@ -63,7 +64,7 @@ public class QuestionController {
     })
 
     @PutMapping("/modifier")
-    public ResponseEntity<Object> modifierQuestion(@RequestBody Question question){
+    public ResponseEntity<Object> modifierQuestion(@Valid @RequestBody Question question){
 
         Question questionVerif = questionService.updateQuestion(question);
         if (questionVerif != null){
@@ -106,7 +107,7 @@ public class QuestionController {
     })
 
     @DeleteMapping("/supprimer")
-    public ResponseEntity<String> supprimerQuestion(@RequestBody Question question){
+    public ResponseEntity<String> supprimerQuestion(@Valid @RequestBody Question question){
 
         String message = questionService.deleteQuestion(question);
         if (message.equals("succes")){

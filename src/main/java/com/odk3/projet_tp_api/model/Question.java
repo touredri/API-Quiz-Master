@@ -33,10 +33,11 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "idQuiz", nullable= false)
+    @JsonIgnoreProperties(value = {"utilisateur","questions"})
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question", orphanRemoval = true)
-    @JsonIgnoreProperties(value = {"question"})
+    @JsonIgnoreProperties(value = {"utilisateur","question"})
     private List<Reponse> reponses = new ArrayList<>();
 
 

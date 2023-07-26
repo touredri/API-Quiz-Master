@@ -1,5 +1,6 @@
 package com.odk3.projet_tp_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class Reponse {
     @ManyToOne
     //Joindre le colonne
     @JoinColumn(name = "idQuestion", nullable = false)
+    @JsonIgnoreProperties(value = {"utilisateur","quiz","reponses"})
     private Question question;
 
     @ManyToOne

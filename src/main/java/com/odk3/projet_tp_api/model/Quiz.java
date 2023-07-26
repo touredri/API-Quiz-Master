@@ -34,7 +34,7 @@ public class Quiz {
     private Utilisateur utilisateur;
 
     @OneToMany(mappedBy = "quiz", orphanRemoval = true) // orphan Removal permet de suppimer tout les id correspond
-    @JsonIgnoreProperties(value = {"quiz"}) // il permet de ignorer tout les question ici
+    @JsonIgnoreProperties(value = {"quiz","utilisateur","reponses"}) // il permet de ignorer tout les question ici
     private List<Question> questions = new ArrayList<>();
 }
 
