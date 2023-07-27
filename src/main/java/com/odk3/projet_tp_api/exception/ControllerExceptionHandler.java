@@ -28,6 +28,30 @@ public class ControllerExceptionHandler {
         return errorMessage;
     }
 
+    @ExceptionHandler(DuplicateException.class)
+    @ResponseStatus(value = HttpStatus.OK)
+    public ErrorMessage notFoundException(DuplicateException ex, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(
+                HttpStatus.OK.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return errorMessage;
+    }
+
+    @ExceptionHandler(NoContentException.class)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public ErrorMessage notFoundException(NoContentException ex, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(
+                HttpStatus.NO_CONTENT.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return errorMessage;
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage globalException(Exception ex, WebRequest request){

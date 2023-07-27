@@ -42,12 +42,7 @@ public class UtilisateurController {
     })
     @PostMapping("/ajouter")
     public Object ajouterUtilisateur(@Valid @RequestBody Utilisateur utilisateur){
-        Utilisateur verifUtilisateur = utilisateurService.creerUtilisateur(utilisateur);
-        if (verifUtilisateur != null) {
-            return verifUtilisateur;
-        } else {
-            return "Utilisateur existe déja !";
-        }
+        return utilisateurService.creerUtilisateur(utilisateur);
     }
 
 
@@ -63,14 +58,7 @@ public class UtilisateurController {
     @PostMapping("/connexion")
     public Object connexion(@Parameter(description = "Email de l'utilisateur") @RequestParam("email") String email,
                             @Parameter(description = "Mot de passe de l'utilisateur") @RequestParam("mot_de_passe") String mot_de_passe) {
-        System.out.println("debut==============");
-        Utilisateur verifUtilisateur = utilisateurService.connectionUtilisateur(email, mot_de_passe);
-
-        if (verifUtilisateur != null) {
-            return verifUtilisateur;
-        } else {
-            return "Ce compte n'existe pas !";
-        }
+        return utilisateurService.connectionUtilisateur(email, mot_de_passe);
     }
 
 
@@ -100,12 +88,7 @@ public class UtilisateurController {
     })
     @PutMapping("/modifier")
     public  Object modifierUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
-        Utilisateur verifUtilisateur = utilisateurService.modifierUtilisateur(utilisateur);
-        if (verifUtilisateur != null) {
-            return verifUtilisateur;
-        } else {
-            return "Utilisateur n'existe pas !";
-        }
+        return utilisateurService.modifierUtilisateur(utilisateur);
     }
 
 
@@ -120,14 +103,7 @@ public class UtilisateurController {
     })
    @DeleteMapping("/supprimer")
     public String supprimerUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
-
-
-        String message = utilisateurService.supprimeUtilisateur(utilisateur);
-        if (message.equals("Succès")) {
-            return "Utilisateur Supprimer avec succès";
-        } else {
-            return "Utilisateur n'existe pas !";
-        }
+        return utilisateurService.supprimeUtilisateur(utilisateur);
     }
 
 

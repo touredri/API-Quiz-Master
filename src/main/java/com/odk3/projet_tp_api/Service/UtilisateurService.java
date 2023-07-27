@@ -1,6 +1,9 @@
 package com.odk3.projet_tp_api.Service;
 
 import com.odk3.projet_tp_api.Repository.UtilisateurRepository;
+import com.odk3.projet_tp_api.exception.DuplicateException;
+import com.odk3.projet_tp_api.exception.NoContentException;
+import com.odk3.projet_tp_api.exception.NotFoundException;
 import com.odk3.projet_tp_api.model.Participer;
 import com.odk3.projet_tp_api.model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,28 +21,27 @@ public class UtilisateurService {
     // Portee , type de retour , nom de la fonction
     public Utilisateur creerUtilisateur(Utilisateur utilisateur){
         if (utilisateurRepository.findByEmail(utilisateur.getEmail()) == null) {
-
-            utilisateurRepository.save(utilisateur);
-            return utilisateurRepository.findByEmail(utilisateur.getEmail());
-
+            return utilisateurRepository.save(utilisateur);
         } else {
-            return null;
+            throw new DuplicateException("Cet email existe déjà");
         }
 
     }
 
     public List<Utilisateur> listUtilisateurs() {
-        return utilisateurRepository.findAll();
+        if (!utilisateurRepository.findAll().isEmpty())
+            return utilisateurRepository.findAll();
+        else
+            throw new NoContentException("Aucun utilisateur n'a été trouver");
     }
 
     public Utilisateur modifierUtilisateur(Utilisateur utilisateur) {
 
         if (utilisateurRepository.findByIdUtilisateur(utilisateur.getIdUtilisateur()) != null){
-            utilisateurRepository.save(utilisateur);
-            return utilisateurRepository.findByIdUtilisateur(utilisateur.getIdUtilisateur());
+            return utilisateurRepository.save(utilisateur);
         }
         else {
-            return null;
+            throw  new NotFoundException("Cet utilisateur n'existe pas");
         }
 
     }
@@ -51,7 +53,7 @@ public class UtilisateurService {
             utilisateurRepository.delete(utilisateur);
             return "Succès";
         } else {
-            return "Utilisateur n'existe pas";
+            throw  new NotFoundException("Cet utilisateur n'existe pas");
         }
 
     }
@@ -60,7 +62,7 @@ public class UtilisateurService {
         if (utilisateurRepository.findByEmailAndMotDePasse(email, mon_de_passe) != null) {
             return utilisateurRepository.findByEmailAndMotDePasse(email, mon_de_passe);
         }else {
-            return null;
+            throw  new NotFoundException("Cet utilisateur n'existe pas");
         }
 
     }
