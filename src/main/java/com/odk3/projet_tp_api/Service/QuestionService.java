@@ -1,6 +1,9 @@
 package com.odk3.projet_tp_api.Service;
 
 import com.odk3.projet_tp_api.Repository.QuestionRepository;
+import com.odk3.projet_tp_api.exception.DuplicateException;
+import com.odk3.projet_tp_api.exception.NoContentException;
+import com.odk3.projet_tp_api.exception.NotFoundException;
 import com.odk3.projet_tp_api.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,7 @@ public class QuestionService {
         if (questionRepository.findQuestionByContenueAndUtilisateurAndQuiz(question.getContenue(), question.getUtilisateur(), question.getQuiz()) == null){
             return questionRepository.save(question);
         }else
-            return null;
+            throw new DuplicateException("Cette Question existe déjà");
     }
 
     public Question updateQuestion(Question question){
@@ -26,11 +29,22 @@ public class QuestionService {
         if(questionRepository.findQuestionByIdQuestionAndUtilisateur(question.getIdQuestion(),question.getUtilisateur()) != null){
             return questionRepository.save(question);
         }else
-            return null;
+            throw new NotFoundException("Cette question n'existe pas");
     }
 
     public List<Question> getAllQuestions(){
-        return questionRepository.findAll();
+        if (!questionRepository.findAll().isEmpty())
+            return questionRepository.findAll();
+        else
+            throw new NoContentException("Aucune question retrouvée");
+    }
+
+    public Question getQuestionById(int id){
+        Question question = questionRepository.findByIdQuestion(id);
+        if (question != null)
+            return question;
+        else
+            throw new NotFoundException("Cette question n'existe pas");
     }
 
     public String deleteQuestion(Question question){
@@ -39,7 +53,7 @@ public class QuestionService {
             questionRepository.delete(question);
             return "succes";
         }else
-            return "not found";
+            throw new NotFoundException("Cette question n'existe pas");
     }
 
 

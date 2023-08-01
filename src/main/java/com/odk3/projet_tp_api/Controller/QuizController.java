@@ -130,4 +130,19 @@ public class QuizController {
         return new ResponseEntity<>(quizService.rechercherQuiz(cleTitre),HttpStatus.OK);
     }
 
+
+    @Operation(summary = "Recupère des quiz à travers son id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Quiz trouver",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Quiz.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "Quiz non trouver", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
+    @GetMapping("/affiche/{id}")
+    public ResponseEntity<Quiz> afficheQuizParId(@PathVariable int id){
+        return new ResponseEntity<>(quizService.getQuizById(id),HttpStatus.OK);
+    }
+
 }

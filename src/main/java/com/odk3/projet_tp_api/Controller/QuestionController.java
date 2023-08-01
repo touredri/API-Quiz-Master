@@ -6,6 +6,7 @@ import com.odk3.projet_tp_api.model.Question;
 import com.odk3.projet_tp_api.model.Quiz;
 import com.odk3.projet_tp_api.model.Utilisateur;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -41,15 +42,9 @@ public class QuestionController {
     })
 
     @PostMapping("/ajouter")
-    public ResponseEntity<Object> ajouterQuestion(@Valid @RequestBody Question question){
-        Question questionVerif = questionService.createQuestion(question);
-        if (questionVerif != null){
-            return new ResponseEntity<>(questionVerif, HttpStatus.OK);
-        }else
-            return new ResponseEntity<>("Question existe déjà", HttpStatus.OK);
+    public ResponseEntity<Question> ajouterQuestion(@Valid @RequestBody Question question){
+        return new ResponseEntity<>(questionService.createQuestion(question), HttpStatus.OK);
     }
-
-
 
     // =====================================================================================================
 
@@ -65,12 +60,7 @@ public class QuestionController {
 
     @PutMapping("/modifier")
     public ResponseEntity<Object> modifierQuestion(@Valid @RequestBody Question question){
-
-        Question questionVerif = questionService.updateQuestion(question);
-        if (questionVerif != null){
-            return new ResponseEntity<>(questionVerif, HttpStatus.OK);
-        }else
-            return new ResponseEntity<>("Question n'existe pas", HttpStatus.OK);
+        return new ResponseEntity<>(questionService.updateQuestion(question), HttpStatus.OK);
     }
 
 
@@ -87,9 +77,24 @@ public class QuestionController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
 
-    @GetMapping("list")
-    public List<Question> listQuestion(){
-        return questionService.getAllQuestions();
+    @GetMapping("/list")
+    public ResponseEntity<List<Question>> listQuestion(){
+        return new ResponseEntity<>(questionService.getAllQuestions(),HttpStatus.OK);
+    }
+
+
+    @Operation(summary = "Recuper une question à travers son id ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Question trouvée",content = {
+                    @Content(mediaType = "application/json",schema = @Schema(implementation = Question.class))
+            }),
+            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404",description = "Question non trouvée", content = @Content),
+            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+    })
+    @GetMapping("/affiche/{id}")
+    public ResponseEntity<Question> afficheQuestionParId(@PathVariable int id){
+        return new ResponseEntity<>(questionService.getQuestionById(id),HttpStatus.OK);
     }
 
 
@@ -109,12 +114,7 @@ public class QuestionController {
     @DeleteMapping("/supprimer")
     public ResponseEntity<String> supprimerQuestion(@Valid @RequestBody Question question){
 
-        String message = questionService.deleteQuestion(question);
-        if (message.equals("succes")){
-            return new ResponseEntity<>("Question supprimer avec succes",HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>("Question not found",HttpStatus.OK);
-        }
+        return new ResponseEntity<>(questionService.deleteQuestion(question),HttpStatus.OK);
     }
 
 

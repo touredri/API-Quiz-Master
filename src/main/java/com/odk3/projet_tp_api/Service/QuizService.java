@@ -49,4 +49,12 @@ public class QuizService {
             throw new NotFoundException("Aucun quiz ne correspond à cet titre");
         }
     }
+
+    public Quiz getQuizById(int id){
+        Quiz quiz = quizRepository.findByIdQuiz(id);
+        if(quiz != null)
+            return quiz;
+        else
+            throw new NotFoundException("Cet quiz n'existe pas");
+    }
 }

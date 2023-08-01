@@ -25,17 +25,16 @@ public class ParticiperController {
     ParticiperService participerService;
 
 
-
     // =====================================================================================================
 
     @Operation(summary = "Ajouter une participation ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Participer ajouter",content = {
-                    @Content(mediaType = "application/json",schema = @Schema(implementation = Participer.class))
+            @ApiResponse(responseCode = "200", description = "Participer ajouter", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Participer.class))
             }),
-            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
-            @ApiResponse(responseCode = "409",description = "Qustion existe déjà", content = @Content),
-            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Qustion existe déjà", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur server", content = @Content)
     })
 
     @PostMapping("/ajouter")
@@ -50,17 +49,16 @@ public class ParticiperController {
     }
 
 
-
     // =====================================================================================================
 
     @Operation(summary = "List des Participation")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Participer list",content = {
-                    @Content(mediaType = "application/json",schema = @Schema(implementation = Participer.class))
+            @ApiResponse(responseCode = "200", description = "Participer list", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Participer.class))
             }),
-            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
-            @ApiResponse(responseCode = "204",description = "List vite", content = @Content),
-            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "204", description = "List vite", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur server", content = @Content)
     })
 
     @GetMapping("/list")
@@ -69,17 +67,16 @@ public class ParticiperController {
     }
 
 
-
     // =====================================================================================================
 
     @Operation(summary = "Modifier une participation ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Question modifier",content = {
-                    @Content(mediaType = "application/json",schema = @Schema(implementation = Participer.class))
+            @ApiResponse(responseCode = "200", description = "Question modifier", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Participer.class))
             }),
-            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
-            @ApiResponse(responseCode = "404",description = "introuvable", content = @Content),
-            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404", description = "introuvable", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur server", content = @Content)
     })
 
     @PutMapping("/modifier")
@@ -93,21 +90,20 @@ public class ParticiperController {
     }
 
 
-
     // =====================================================================================================
 
     @Operation(summary = "Supprimer une participer ")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Participer supprimer",content = {
-                    @Content(mediaType = "text/plain",schema = @Schema(implementation = Participer.class))
+            @ApiResponse(responseCode = "200", description = "Participer supprimer", content = {
+                    @Content(mediaType = "text/plain", schema = @Schema(implementation = Participer.class))
             }),
-            @ApiResponse(responseCode = "400",description = "Mauvaise requete", content = @Content),
-            @ApiResponse(responseCode = "404",description = "Question existe pas", content = @Content),
-            @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Mauvaise requete", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Question existe pas", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Erreur server", content = @Content)
     })
 
     @DeleteMapping("/supprimer")
-    public ResponseEntity<String> supprimerParticiper(@RequestBody  Participer participer) {
+    public ResponseEntity<String> supprimerParticiper(@RequestBody Participer participer) {
         String message = participerService.supprimerParticiper(participer);
 
         if (message.equals("Sussès")) {
@@ -116,4 +112,27 @@ public class ParticiperController {
             return new ResponseEntity<>("NOT found", HttpStatus.NOT_FOUND);
         }
     }
+
+    //=======================================JOUER=================================================
+
+    @GetMapping("/")
+    public ResponseEntity<List<String>> listDesQuizs() {
+        return new ResponseEntity<>(participerService.allQuizs(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{idUser}/{idQuiz}/jouer")
+    public ResponseEntity<List<String>> jouer(@PathVariable int idUser, @PathVariable int idQuiz, @RequestParam(value = "choix",required = false) Integer choix) {
+
+        if (choix == null) {
+            return new ResponseEntity<>(participerService.jouer(idUser, idQuiz), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(participerService.answer(idUser, idQuiz, choix), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/{idUser}/{idQuiz}/classement")
+    public List<String> classement(@PathVariable int idUser, @PathVariable int idQuiz){
+        return participerService.rang(idUser,idQuiz);
+    }
+
 }

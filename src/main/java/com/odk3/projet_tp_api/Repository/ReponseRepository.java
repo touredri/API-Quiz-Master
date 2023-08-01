@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReponseRepository extends JpaRepository<Reponse,Integer> {
 
-    public Reponse findByContenueAndQuestion(String contenue, Question question);
-
-    public  Reponse findByIdReponseAndUtilisateur(int id, Utilisateur utilisateur);
+    Reponse findByContenueAndQuestion(String contenue, Question question);
+    Reponse findByIdReponseAndUtilisateur(int id, Utilisateur utilisateur);
     int countByQuestion(Question question);
+    Reponse findByIdReponse(int id);
 }

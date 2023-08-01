@@ -28,6 +28,14 @@ public class Participer {
     @Column(nullable = false)
     private int score;
 
+    @NotNull(message = "champs null")
+    @Column(nullable = false)
+    private int level;
+
+    @NotNull(message = "champs null")
+    @Column(nullable = false)
+    private boolean terminer;
+
     @ManyToOne
     //Joindre le colonne
     @JoinColumn(name = "idUtilisateur",nullable = false)

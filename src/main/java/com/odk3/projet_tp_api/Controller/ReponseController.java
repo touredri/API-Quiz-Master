@@ -26,10 +26,7 @@ import java.util.List;
 public class ReponseController {
 
     @Autowired // Injection de depandence
-    ReponseService reponseService; // Un variable de type UtilisateurService
-
-    @Autowired
-    ReponseRepository reponseRepository;
+    ReponseService reponseService; // Un variable de type UtilisateurService;
 
 
     @Operation(summary = "Ajouter une reponse")
@@ -42,17 +39,8 @@ public class ReponseController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
     @PostMapping ("/ajouter")
-    public ResponseEntity<Object> ajouterReponse(@Valid @RequestBody Reponse reponse) {
-        Reponse verifReponse = reponseService.creerReponse(reponse);
-        if (verifReponse != null) {
-            if (reponseRepository.countByQuestion(verifReponse.getQuestion()) >= 4){
-                return new ResponseEntity<>("nombre de reponse atteint", HttpStatus.OK);
-            }else{
-                return new ResponseEntity<>(verifReponse, HttpStatus.OK) ;
-            }
-        } else {
-            return new ResponseEntity<>("Reponse existe déjà", HttpStatus.OK);
-        }
+    public ResponseEntity<Reponse> ajouterReponse(@Valid @RequestBody Reponse reponse) {
+        return new ResponseEntity<>(reponseService.creerReponse(reponse),HttpStatus.OK);
     }
 
 
@@ -67,12 +55,7 @@ public class ReponseController {
     })
     @PutMapping("/modifier")
     public ResponseEntity<Object> modifierReponse(@Valid @RequestBody Reponse reponse) {
-        Reponse verifReponse = reponseService.modiferReponse(reponse);
-        if (verifReponse != null) {
-            return new ResponseEntity<>(verifReponse, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Modification succès", HttpStatus.OK);
-        }
+        return new ResponseEntity<>(reponseService.modiferReponse(reponse), HttpStatus.OK);
     }
 
 
@@ -86,8 +69,8 @@ public class ReponseController {
             @ApiResponse(responseCode = "500",description = "Erreur server", content = @Content)
     })
     @GetMapping("list")
-    public List<Reponse> listQuestion(){
-        return reponseService.reponses();
+    public ResponseEntity<List<Reponse>> listQuestion(){
+        return new ResponseEntity<>(reponseService.reponses(),HttpStatus.OK);
     }
 
 
@@ -102,12 +85,7 @@ public class ReponseController {
     })
     @DeleteMapping("/supprimer")
     public  ResponseEntity<String> supprimerReponse(@Valid @RequestBody Reponse reponse){
-        String message = reponseService.supprimerReponse(reponse);
-        if (message.equals("Succès")) {
-            return new ResponseEntity<>("Suppression avec Succès", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Cette reponse existe pas", HttpStatus.OK);
-        }
+        return new ResponseEntity<>(reponseService.supprimerReponse(reponse), HttpStatus.OK);
     }
 
 }
