@@ -197,7 +197,7 @@ public class ParticiperService {
             classement.forEach(participer1 -> {
                 i.getAndIncrement();
                 if(participer1.getUtilisateur().getIdUtilisateur() == idUser){
-                    list.add("Voici le classement du quiz et vous êtes "+i.get()+"ème avec "+participer.getScore()+" points");
+                    list.add("Voici le classement du quiz et vous êtes "+i.get()+(i.get() == 1 ? "er(ère)" : "ème")+" avec "+participer.getScore()+" points");
                 }
             });
             classement.forEach(participer1 -> {
@@ -205,7 +205,7 @@ public class ParticiperService {
             });
             return list;
         }else
-            throw new NotFoundException("Acune participation trouvé");
+            throw new NotFoundException("Aucune participation trouvé");
     }
 
 }
