@@ -23,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reponse")
+@CrossOrigin
 public class ReponseController {
 
     @Autowired // Injection de depandence
