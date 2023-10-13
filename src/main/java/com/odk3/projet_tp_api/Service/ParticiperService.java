@@ -201,7 +201,7 @@ public class ParticiperService {
                 }
             });
             classement.forEach(participer1 -> {
-                list.add(list.size()+" : "+participer1.getUtilisateur().getNom()+" "+participer1.getUtilisateur().getPrenom()+" avec "+participer1.getScore()+" points");
+                list.add(list.size()+" : "+participer1.getUtilisateur().getNomPrenom()+" "+participer1.getUtilisateur().getPseudo()+" avec "+participer1.getScore()+" points");
             });
             return list;
         }else
