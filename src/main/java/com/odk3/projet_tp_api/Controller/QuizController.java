@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/quiz")
+// @CrossOrigin(origins = "http://192.168.232.2:39128")
 public class QuizController {
 
     @Autowired

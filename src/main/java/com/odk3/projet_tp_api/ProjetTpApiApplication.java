@@ -9,6 +9,7 @@ public class ProjetTpApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetTpApiApplication.class, args);
+		System.out.println("Application lancée avec succès!!!");
 	}
 
 }
