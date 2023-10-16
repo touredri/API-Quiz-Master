@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class Utilisateur {
 
     // Not Null de Spring
     // message : message afficher si le champs de notre Nom est vide
-    @NotNull(message = "Champs vide")
+//    @NotNull(message = "Champs vide")
 
     // lenght de notre nom
     // message : message afficher si le champs de notre Nom est vide
@@ -34,9 +35,9 @@ public class Utilisateur {
 
     // Not Null de base de donnée
     @Column(nullable = false)
-    private String nom;
+    private String nomPrenom;
 
-    //=========================== POUR PRENOM ===========================
+    //=========================== POUR Pseudo ===========================
 
     // Not Null de Spring
     // message : message afficher si le champs de notre prenom est vide
@@ -48,14 +49,17 @@ public class Utilisateur {
 
     // Not Null de base donnée
     @Column(nullable = false)
-    private String prenom;
+    private String pseudo;
+
+
 
     //========================== POUR EMAIL ============================
+
 
     // Not Null de Spring
     // message : message afficher
     // message : message afficher si le champs de notre email est vide
-    @NotNull(message = "Champs vide")
+    @NotBlank(message = "Champs vide")
 
     // L'Anotation d'Email
     // message : message afficher si le champs de notre email est vide
@@ -77,6 +81,22 @@ public class Utilisateur {
     // Not Null de base de donnée
     @Column(nullable = false)
     private String motDePasse;
+
+    //=========================== POUR confirmer  ===========================
+
+    // Not Null de Spring
+    // message : message afficher si le champs de notre prenom est vide
+    @NotNull(message = "Champs vide")
+
+    // lenght de notre prenom
+    // message : message afficher si le champs de notre prenom est vide
+    @Size(min = 2,message = "veuillez confirmer votre mot de pass")
+
+    // Not Null de base donnée
+    @Column(nullable = false)
+    private String confirmPasseword;
+
+//    ===========================relations====================
 
     @OneToMany(mappedBy = "utilisateur", orphanRemoval = true)
     @JsonIgnore

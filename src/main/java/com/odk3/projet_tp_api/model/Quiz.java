@@ -29,19 +29,15 @@ public class Quiz {
     @Column(nullable = false)
     private String titre;
 
-    @Column(nullable = false)
+    @Column
     private int timer;
 
     @ManyToOne
     @JoinColumn(name = "idUtilisateur",nullable = false)
     private Utilisateur utilisateur;
-    
-    @ManyToOne
-    @JoinColumn(name = "idCategorie",nullable = false)
-    private Categorie categorie;
 
     @OneToMany(mappedBy = "quiz", orphanRemoval = true) // orphan Removal permet de suppimer tout les id correspond
-    @JsonIgnoreProperties(value = {"quiz","utilisateur","reponses"}) // il permet de ignorer tout les question ici
+    @JsonIgnoreProperties(value = {"quiz","utilisateur"}) // il permet de ignorer tout les question ici
     private List<Question> questions = new ArrayList<>();
 }
 

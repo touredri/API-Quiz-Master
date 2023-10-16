@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateur")
+@CrossOrigin
 public class UtilisateurController {
 
 

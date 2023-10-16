@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("participer")
+@CrossOrigin
 public class ParticiperController {
 
     @Autowired // injection de donnée
